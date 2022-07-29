@@ -3,11 +3,32 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BaseLayout from './components/BaseLayout';
+import Login from './components/Login';
+import PostList from './components/PostList';
+import Register from './components/Register';
+import { Provider } from 'react-redux';
+import store from './stores/store'
+import ProfilePage from './components/ProfilePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+    <Provider store={store}>
+    <BaseLayout>
+        <Routes>
+          <Route path='/' element = {<PostList />}/>
+          <Route path='/login' element = {<Login/>}/>
+          <Route path='/register' element = {<Register/>}/>
+          <Route path='/profile' element = {<ProfilePage/>}/>
+        </Routes>
+      </BaseLayout>
+    </Provider>
+      
+    </BrowserRouter>
   </React.StrictMode>
 );
 
