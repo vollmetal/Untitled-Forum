@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const authenticate = require('../middleware/authentication');
 
+
 const SALT_ROUNDS = 10
 
 const User = require('../schemas/user')
@@ -31,7 +32,7 @@ userRouter.post('/new', async (req, res) => {
 
                 newUser.save((error) => {
                     if (error) {
-                        res.json({ success: false, message: error })
+                        res.json({ success: false, message: error, currentData: userInfo})
                     } else {
                         res.json({ success: true, message: `Profile ${userInfo.name} successfully made!` })
                     }
@@ -41,41 +42,30 @@ userRouter.post('/new', async (req, res) => {
     }
 })
 
-userRouter.post('/update', async (req, res) => {
+userRouter.post('/update', authenticate, async (req, res) => {
     const userInfo = req.body
-
-    bcrypt.hash(userInfo.password, SALT_ROUNDS, async (error, hash) => {
-        if (error) {
-            res.json({ success: false, message: `failed to update!` })
-        } else {
-            const userUpdateInfo = {
-                name: userInfo.name,
-                email: userInfo.email,
-                password: hash,
-                profileURL: userInfo.profilePicture,
-                aboutMe: userInfo.aboutMe,
-                favoriteForumIds: userInfo.favoriteForumIds
-            }
-
-
+    const userUpdateInfo = {
+        name: userInfo.name,
+        email: userInfo.email,
+        profileURL: userInfo.profilePicture,
+        aboutMe: userInfo.aboutMe
+    }
             try {
                 const updatedUser = await User.findByIdAndUpdate(userInfo.id, userUpdateInfo)
                 res.json({ success: true, user: updatedUser })
             } catch {
-                res.json({ success: false, message: "Failed to update user" })
+                res.json({ success: false, message: "Failed to update user", currentData: userInfo })
             }
-        }
-    })
 })
 
-userRouter.get('/find/:userId', authenticate, async (req, res) => {
-    const userId = req.params.userId
+userRouter.get('/find', authenticate, async (req, res) => {
+    const userId = req.body.userId
 
     try {
         const foundUser = await User.findById(userId)
         res.json({ success: true, user: foundUser })
     } catch {
-        res.json({ success: false, message: "Failed to find user" })
+        res.json({ success: false, message: "Failed to find user", currentData: userId })
     }
 })
 
@@ -88,13 +78,13 @@ userRouter.post('/login', async (req, res) => {
             bcrypt.compare(password, foundUser.password, (error, result) => {
                 if(result) {
                     const token = jwt.sign({id: foundUser.id}, 'LINUSTORVALDS')
-                    res.json({success: true, username: foundUser.username, token: token})
+                    res.json({success: true, name: foundUser.name, token: token})
                 } else {
-                    res.json({success: false, message: error})
+                    res.json({success: false, message: 'Password entered was incorrect!', currentData: req.body})
                 }
             })
         } else {
-            res.json({success: false, message: `user ${email} not found`})
+            res.json({success: false, message: `user ${email} not found`, currentData: req.body})
         }
     } catch {
 
@@ -108,7 +98,7 @@ userRouter.delete('/delete/:userId', async (req, res) => {
         const foundUser = await User.findByIdAndDelete(userId)
         res.json({ success: true, message: "Successfully deleted user!" })
     } catch {
-        res.json({ success: false, message: "Failed to delete user" })
+        res.json({ success: false, message: "Failed to delete user", currentData: userId })
     }
 })
 
