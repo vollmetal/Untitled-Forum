@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { logout } from '../stores/userReducer'
 
@@ -6,6 +6,12 @@ import { logout } from '../stores/userReducer'
 function Navbar (props) {
     const { username, isAuthenticated } = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const logoutFunction = () => {
+        dispatch(logout())
+        navigate('/')
+    }
 
     return (
         <div className='navbar'>
@@ -20,7 +26,7 @@ function Navbar (props) {
                     </div> : <div>
                         <h1>{username}</h1>
                         <div className="navButton"><NavLink to='/profile'><button> My Profile</button></NavLink></div>
-                        <button onClick={() => dispatch(logout())}>Logout</button>
+                        <button onClick={logoutFunction}>Logout</button>
                 </div>}
             </div>
         </div>

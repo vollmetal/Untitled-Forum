@@ -29,7 +29,8 @@ function Register () {
                     name: storedInfo.name,
                     email: storedInfo.email,
                     password: storedInfo.password,
-                    profileURL: storedInfo.profilePicture
+                    profileURL: "placeholder",
+                    aboutMe: "placeholder"
             })
         })
         const userInfo = await fetchedInfo.json()
@@ -90,7 +91,7 @@ function Register () {
     }
 
     return (
-        <div>
+        <div className="loginMenu">
             <h1>Register Account here!</h1>
             <div className="registerInput">
             <div className="fieldInput">
@@ -104,10 +105,6 @@ function Register () {
                 <div className="fieldInput">
                     <label>Password: </label>
                     <input onChange={updateStoredInfo} type='password' name='password' placeholder='password'/>
-                </div>
-                <div className="fieldInput">
-                    <label>Profile Picture URL: </label>
-                    <input onChange={updateStoredInfo} type='text' name='profilePicture' placeholder='picture'/>
                 </div>
             </div>
             <button className="submitButton" onClick={registerNewUser}>Submit</button>

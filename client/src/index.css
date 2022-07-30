@@ -58,5 +58,13 @@ code {
 .failMessage {
   background-color: red;
   color: white;
+  padding: 20px;
 
+}
+
+.registerInput {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

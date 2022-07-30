@@ -24,7 +24,7 @@ userRouter.post('/new', async (req, res) => {
                     name: userInfo.name,
                     email: userInfo.email,
                     password: hash,
-                    profileURL: userInfo.profilePicture,
+                    profileURL: userInfo.profileURL,
                     aboutMe: userInfo.aboutMe,
                     isAdmin: false,
                     favoriteForumIds: []
@@ -43,15 +43,16 @@ userRouter.post('/new', async (req, res) => {
 })
 
 userRouter.post('/update', authenticate, async (req, res) => {
+    console.log(req.body)
     const userInfo = req.body
     const userUpdateInfo = {
         name: userInfo.name,
         email: userInfo.email,
-        profileURL: userInfo.profilePicture,
+        profileURL: userInfo.profileURL,
         aboutMe: userInfo.aboutMe
     }
             try {
-                const updatedUser = await User.findByIdAndUpdate(userInfo.id, userUpdateInfo)
+                const updatedUser = await User.findByIdAndUpdate(userInfo.userId, userUpdateInfo)
                 res.json({ success: true, user: updatedUser })
             } catch {
                 res.json({ success: false, message: "Failed to update user", currentData: userInfo })
