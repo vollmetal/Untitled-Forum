@@ -1,11 +1,22 @@
+import { Box, Button, List, Skeleton } from "@mui/material";
+import { useState } from "react";
+import * as lightStyles from "../Styles/lightStyle";
 
 
 
 function PostList () {
+
+    const [postList, setPostList] = useState({})
+    const [retrievingInfo, setRetrievingInfo] = useState(false)
+    const [errorIndo, setErrorInfo] = useState({})
+
     return (
-        <div>
-            <h1>List of Posts goes here!</h1>
-        </div>
+        <Box sx={{margin: '50px'}}>
+            <Button sx={lightStyles.MainButton} variant='contained'>Make New Post</Button>
+            {!retrievingInfo ? <List>
+
+            </List>: <Skeleton sx={{margin:'10%', padding:'30%'}} variant="rectangular"/>}
+        </Box>
     )
 }
 

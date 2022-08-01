@@ -1,8 +1,10 @@
+import { Box } from "@mui/material";
+import { ThemeProvider } from "@mui/system";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 import { login } from "../stores/userReducer";
 import Navbar from "./Navbar";
+import * as lightStyles from "../Styles/lightStyle";
 
 
 function BaseLayout (props) {
@@ -44,10 +46,11 @@ function BaseLayout (props) {
     }
 
     return (
-        <div className="baseLayout">
+            <Box sx={{backgroundColor: 'antiquewhite'}}>
             <Navbar/>
             {props.children}
-        </div>
+        </Box>
+        
     )
 }
 

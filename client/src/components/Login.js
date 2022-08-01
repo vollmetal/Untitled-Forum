@@ -2,7 +2,10 @@ import { useState } from "react";
 import {useDispatch} from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { login } from "../stores/userReducer";
-
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { Alert, Box, Card, CardContent, CardHeader, TextField, Typography } from "@mui/material";
+import * as lightStyles from "../Styles/lightStyle";
 
 
 function Login () {
@@ -55,21 +58,24 @@ function Login () {
     }
 
     return (
-        <div className="loginMenu">
-            <h1>Login</h1>
-            <div className="loginInput">
-                <div className="fieldInput">
-                    <label>Email: </label>
-                    <input onChange={updateStoredInfo} type='text' name='email' placeholder='test@test.com'/>
-                </div>
-                <div className="fieldInput">
-                    <label>Password: </label>
-                    <input onChange={updateStoredInfo} type='password' name='password' placeholder='password'/>
-                </div>
-            </div>
-            <button className="submitButton" onClick={loginFunction}>Login</button>
-            {storedInfo.errorMessage ? <label className="failMessage">{storedInfo.errorMessage}</label> : null}
-        </div>
+        <Box sx={{margin: '50px'}}>
+            <Card className="loginInput" sx={{backgroundColor: lightStyles.CARDCOLOR}}>
+                <CardContent sx={{padding: '50px'}}>
+                <Typography sx={lightStyles.CardHeaderText} variant="h4">
+                    Login
+                </Typography>
+                <TextField sx={lightStyles.MainTextInput} fullWidth label="email" onChange={updateStoredInfo} name='email' />
+                <TextField sx={lightStyles.MainTextInput} fullWidth label="password" type='password' onChange={updateStoredInfo} name='password'/>
+                <Button sx={lightStyles.MainButton} variant="contained" className="submitButton" onClick={loginFunction}>
+                    Login
+                </Button>
+                {storedInfo.errorMessage ? <Alert severity="error">{storedInfo.errorMessage}</Alert> : null}
+
+                </CardContent>
+            </Card>
+            
+            
+        </Box>
     )
 }
 

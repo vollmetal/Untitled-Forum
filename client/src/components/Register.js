@@ -2,6 +2,10 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { login, register } from "../stores/userReducer"
 import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { Alert, Box, Card, CardContent, TextField, Typography } from "@mui/material";
+import * as lightStyles from "../Styles/lightStyle";
 
 
 
@@ -91,25 +95,21 @@ function Register () {
     }
 
     return (
-        <div className="loginMenu">
-            <h1>Register Account here!</h1>
-            <div className="registerInput">
-            <div className="fieldInput">
-                    <label>Username: </label>
-                    <input onChange={updateStoredInfo} type='text' name='name' placeholder='test'/>
-                </div>
-                <div className="fieldInput">
-                    <label>Email: </label>
-                    <input onChange={updateStoredInfo} type='text' name='email' placeholder='test@test.com'/>
-                </div>
-                <div className="fieldInput">
-                    <label>Password: </label>
-                    <input onChange={updateStoredInfo} type='password' name='password' placeholder='password'/>
-                </div>
-            </div>
-            <button className="submitButton" onClick={registerNewUser}>Submit</button>
-            {storedInfo.errorMessage ? <label className="failMessage">{storedInfo.message}</label> : null}
-        </div>
+        <Box sx={{margin: '50px'}}>
+            <Card sx={{backgroundColor: lightStyles.CARDCOLOR}}>
+                <CardContent sx={{padding: '50px'}}>
+                <Typography sx={lightStyles.CardHeaderText} variant="h4">
+                        Register
+                      </Typography>
+                    <TextField sx={lightStyles.MainTextInput} fullWidth variant="outlined" label="name" onChange={updateStoredInfo} name='name'/>
+                    <TextField sx={lightStyles.MainTextInput} fullWidth label="email" onChange={updateStoredInfo} name='email' />
+                    <TextField sx={lightStyles.MainTextInput} fullWidth label="password" type='password' onChange={updateStoredInfo} name='password'/>
+                    <Button sx={lightStyles.MainButton} variant="contained" className="submitButton" onClick={registerNewUser}>Submit</Button>
+                    {storedInfo.errorMessage ? <Alert severity="error">{storedInfo.message}</Alert> : null}
+                </CardContent>
+            </Card>
+            
+        </Box>
     )
 }
 
