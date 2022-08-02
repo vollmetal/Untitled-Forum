@@ -7,12 +7,14 @@ global.bcrypt = require('bcryptjs')
 app.use(express.json())
 app.use(cors())
 
+require('dotenv').config()
+
 
 const userRoutes = require('./routes/users')
 app.use('/user', userRoutes)
 
 
-mongoose.connect('mongodb+srv://vollmetal:YNUjzpwC1n2fJukn@cluster0.dj2mwtq.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.dj2mwtq.mongodb.net/?retryWrites=true&w=majority`, {
     useNewUrlParser: true, useUnifiedTopology: true},
     (error) => {
         if(error) {
