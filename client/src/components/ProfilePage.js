@@ -2,13 +2,14 @@ import { useEffect, useState } from "react"
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { Box, Card, CardContent, Skeleton, TextField, Typography } from "@mui/material";
-import * as lightStyles from "../Styles/lightStyle";
+import { useSelector } from "react-redux";
 
 
 
 function ProfilePage() {
     const [profileInfo, setprofileInfo] = useState({})
     const [retrievingInfo, setRetrievingInfo] = useState(false)
+    const theme = useSelector((state) => state.theme).theme
 
     useEffect(() => {
         getProfileInfo()
@@ -89,16 +90,37 @@ function ProfilePage() {
 
     return (
         <Box sx={{margin: '50px'}}>
-            {!retrievingInfo ? <Card sx={{backgroundColor: lightStyles.CARDCOLOR, }}>
+            {!retrievingInfo ? <Card sx={{backgroundColor: theme.palette.primary, }}>
                 <CardContent sx={{padding: '50px', flexDirection: 'column', display: 'flex'}}>
-                    <Typography sx={lightStyles.CardHeaderText} variant="h4">
+                    <Typography sx={{
+                        
+                    }} variant="h4">
                         Profile Information
                       </Typography>
-                    <TextField sx={lightStyles.MainTextInput} label="Profile Picture" onChange={updateStoredInfo} type='text' name='profileURL' value={profileInfo.profileURL} />
-                    <TextField sx={lightStyles.MainTextInput} label="Username" onChange={updateStoredInfo} type='text' name='name' value={profileInfo.name} />
-                    <TextField sx={lightStyles.MainTextInput} label="Email" onChange={updateStoredInfo} type='text' name='email' value={profileInfo.email} />
-                    <TextField sx={lightStyles.MainTextInput} label="About Me" onChange={updateStoredInfo} type='text' name='aboutMe' value={profileInfo.aboutMe} />
-                    <Button variant="contained" onClick={saveUpdatedInfo}>Update Info</Button>
+                    <TextField sx={{
+                    bgcolor: 'white',
+                    mb: theme.inputMargins,
+                    mt: theme.inputMargins
+                }} label="Profile Picture" onChange={updateStoredInfo} type='text' name='profileURL' value={profileInfo.profileURL} />
+                    <TextField sx={{
+                        bgcolor: 'white',
+                        mb: theme.inputMargins,
+                        mt: theme.inputMargins
+                    }} label="Username" onChange={updateStoredInfo} type='text' name='name' value={profileInfo.name} />
+                    <TextField sx={{
+                        bgcolor: 'white',
+                        mb: theme.inputMargins,
+                        mt: theme.inputMargins
+                    }} label="Email" onChange={updateStoredInfo} type='text' name='email' value={profileInfo.email} />
+                    <TextField sx={{
+                        bgcolor: 'white',
+                        mb: theme.inputMargins,
+                        mt: theme.inputMargins
+                    }} label="About Me" onChange={updateStoredInfo} type='text' name='aboutMe' value={profileInfo.aboutMe} />
+                    <Button variant="contained" sx={{
+                        bgColor: theme.palette.secondary,
+                        m: theme.buttonMargins
+                    }} onClick={saveUpdatedInfo}>Update Info</Button>
 
                 </CardContent>
             </Card> : <Skeleton variant="rectangular" animation="wave" />}

@@ -70,6 +70,17 @@ userRouter.get('/find', authenticate, async (req, res) => {
     }
 })
 
+userRouter.get('/findbyid/:userId', async (req, res) => {
+    const userId = req.params.userId
+
+    try {
+        const foundUser = await User.findById(userId)
+        res.json({ success: true, user: foundUser })
+    } catch {
+        res.json({ success: false, message: "Failed to find user", currentData: userId })
+    }
+})
+
 userRouter.post('/login', async (req, res) => {
     const {email, password} = req.body
 
