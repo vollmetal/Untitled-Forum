@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
-import { setCurrentPost } from "../stores/postReducer";
+import { setCurrentPost, clearCurrentPost } from "../stores/postReducer";
 
 function PostPreview(props) {
 
     const [postInfo, setPostInfo] = useState(props)
 
     const { username, isAuthenticated } = useSelector((state) => state.user)
+    const post = useSelector((state) => state.post)
     const theme = useSelector((state) => state.theme).theme
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -31,6 +32,7 @@ function PostPreview(props) {
                     'authorization': `IMPORTANT ${localStorage.getItem('userToken')}`
                 }
             })
+            dispatch(setCurrentPost(postInfo.props))
         } catch {
 
         }
