@@ -1,17 +1,18 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { login, register } from "../stores/userReducer"
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { Alert, Box, Card, CardContent, TextField, Typography } from "@mui/material";
-import * as lightStyles from "../Styles/lightStyle";
+import { API_URL, USER_URL } from "../env";
 
 
 
 function Register () {
 
     const [storedInfo, setStoredInfo] = useState({})
+    const theme = useSelector((state) => state.theme).theme
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -24,7 +25,7 @@ function Register () {
 
     const registerNewUser =  async () => {
         try {
-            const fetchedInfo = await fetch('http://localhost:4200/user/new', {
+            const fetchedInfo = await fetch(`${API_URL}/${USER_URL}/new`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +61,7 @@ function Register () {
     const loginFunction = async () => {
 
         try {
-            const fetchedInfo = await fetch('http://localhost:4200/user/login', {
+            const fetchedInfo = await fetch(`${API_URL}/${USER_URL}/login`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -96,15 +97,32 @@ function Register () {
 
     return (
         <Box sx={{margin: '50px'}}>
-            <Card sx={{backgroundColor: lightStyles.CARDCOLOR}}>
+            <Card sx={{backgroundColor: theme.palette.primary}}>
                 <CardContent sx={{padding: '50px'}}>
-                <Typography sx={lightStyles.CardHeaderText} variant="h4">
+                <Typography sx={{
+                    
+                }} variant="h4">
                         Register
                       </Typography>
-                    <TextField sx={lightStyles.MainTextInput} fullWidth variant="outlined" label="name" onChange={updateStoredInfo} name='name'/>
-                    <TextField sx={lightStyles.MainTextInput} fullWidth label="email" onChange={updateStoredInfo} name='email' />
-                    <TextField sx={lightStyles.MainTextInput} fullWidth label="password" type='password' onChange={updateStoredInfo} name='password'/>
-                    <Button sx={lightStyles.MainButton} variant="contained" className="submitButton" onClick={registerNewUser}>Submit</Button>
+                    <TextField sx={{
+                        bgcolor: 'white',
+                        mb: theme.inputMargins,
+                        mt: theme.inputMargins
+                    }} fullWidth variant="outlined" label="name" onChange={updateStoredInfo} name='name'/>
+                    <TextField sx={{
+                        bgcolor: 'white',
+                        mb: theme.inputMargins,
+                        mt: theme.inputMargins
+                    }} fullWidth label="email" onChange={updateStoredInfo} name='email' />
+                    <TextField sx={{
+                        bgcolor: 'white',
+                        mb: theme.inputMargins,
+                        mt: theme.inputMargins
+                    }} fullWidth label="password" type='password' onChange={updateStoredInfo} name='password'/>
+                    <Button sx={{
+                        bgcolor: theme.palette.secondary,
+                        m: theme.buttonMargins
+                    }} variant="contained" className="submitButton" onClick={registerNewUser}>Submit</Button>
                     {storedInfo.errorMessage ? <Alert severity="error">{storedInfo.message}</Alert> : null}
                 </CardContent>
             </Card>

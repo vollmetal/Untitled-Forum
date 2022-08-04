@@ -13,6 +13,9 @@ require('dotenv').config()
 const userRoutes = require('./routes/users')
 app.use('/user', userRoutes)
 
+const postRoutes = require('./routes/posts')
+app.use('/post', postRoutes)
+
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.dj2mwtq.mongodb.net/?retryWrites=true&w=majority`, {
     useNewUrlParser: true, useUnifiedTopology: true},

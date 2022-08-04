@@ -1,13 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { logout } from '../stores/userReducer'
-import * as React from 'react';
 import Button from '@mui/material/Button';
-import * as lightStyles from "../Styles/lightStyle";
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
 
 function Navbar (props) {
     const { username, isAuthenticated } = useSelector((state) => state.user)
+    const theme = useSelector((state) => state.theme).theme
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -18,17 +17,37 @@ function Navbar (props) {
 
     return (
         <AppBar position='relative' sx={{color: 'black'}}>
-            <Toolbar variant='h1' sx={lightStyles.NavBar}>
-            <Typography sx={lightStyles.HeaderText}>OpenForum</Typography>
-                <div><NavLink to="/"><Button sx={lightStyles.MainButton} variant='contained'>Home</Button> </NavLink></div>
+            <Toolbar variant='h1' sx={{
+                            bgcolor: theme.palette.primary,
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            padding: '10px',
+                        }}>
+            <Typography >OpenForum</Typography>
+                <div><NavLink to="/"><Button sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Home</Button> </NavLink></div>
 
             {!isAuthenticated ? <Box >
-                        <NavLink to='/register'><Button sx={lightStyles.MainButton} variant='contained'>Register</Button></NavLink>
-                        <NavLink to='/login'><Button sx={lightStyles.MainButton} variant='contained'>Login</Button></NavLink>
+                        <NavLink to='/register'><Button sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Register</Button></NavLink>
+                        <NavLink to='/login'><Button sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Login</Button></NavLink>
                     </Box> : <Box>
                         <Typography variant='h5'>{username}</Typography>
-                        <NavLink to='/profile'><Button sx={lightStyles.MainButton} variant='contained'> My Profile</Button></NavLink>
-                        <Button sx={lightStyles.MainButton} variant="contained" onClick={logoutFunction}>Logout</Button>
+                        <NavLink to='/profile'><Button sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'> My Profile</Button></NavLink>
+                        <Button sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant="contained" onClick={logoutFunction}>Logout</Button>
                 </Box>}
             </Toolbar>
         </AppBar>

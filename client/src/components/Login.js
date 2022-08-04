@@ -1,15 +1,16 @@
 import { useState } from "react";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { login } from "../stores/userReducer";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { Alert, Box, Card, CardContent, CardHeader, TextField, Typography } from "@mui/material";
-import * as lightStyles from "../Styles/lightStyle";
+import { API_URL, USER_URL } from "../env";
 
 
 function Login () {
     const [storedInfo, setStoredInfo] = useState({})
+    const theme = useSelector((state) => state.theme).theme
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -23,7 +24,7 @@ function Login () {
     const loginFunction = async () => {
 
         try {
-            const fetchedInfo = await fetch('http://localhost:4200/user/login', {
+            const fetchedInfo = await fetch(`${API_URL}/${USER_URL}/login`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,14 +60,26 @@ function Login () {
 
     return (
         <Box sx={{margin: '50px'}}>
-            <Card className="loginInput" sx={{backgroundColor: lightStyles.CARDCOLOR}}>
+            <Card className="loginInput" sx={{
+                            bgcolor: theme.palette.primary
+                        }}>
                 <CardContent sx={{padding: '50px'}}>
-                <Typography sx={lightStyles.CardHeaderText} variant="h4">
+                <Typography  variant="h4">
                     Login
                 </Typography>
-                <TextField sx={lightStyles.MainTextInput} fullWidth label="email" onChange={updateStoredInfo} name='email' />
-                <TextField sx={lightStyles.MainTextInput} fullWidth label="password" type='password' onChange={updateStoredInfo} name='password'/>
-                <Button sx={lightStyles.MainButton} variant="contained" className="submitButton" onClick={loginFunction}>
+                <TextField sx={{
+                    bgcolor: 'white',
+                    mb: theme.inputMargins,
+                    mt: theme.inputMargins
+                }} fullWidth label="username" onChange={updateStoredInfo} name='name' />
+                <TextField sx={{
+                    bgcolor: 'white',
+                    mb: theme.inputMargins,
+                    mt: theme.inputMargins
+                }} fullWidth label="password" type='password' onChange={updateStoredInfo} name='password'/>
+                <Button sx={{
+                            bgcolor: theme.palette.secondary
+                        }} variant="contained" className="submitButton" onClick={loginFunction}>
                     Login
                 </Button>
                 {storedInfo.errorMessage ? <Alert severity="error">{storedInfo.errorMessage}</Alert> : null}

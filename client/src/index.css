@@ -68,3 +68,7 @@ code {
   flex-direction: column;
   align-items: center;
 }
+
+.quill {
+  background-color: white;
+}

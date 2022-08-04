@@ -4,23 +4,25 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../stores/userReducer";
 import Navbar from "./Navbar";
-import * as lightStyles from "../Styles/lightStyle";
+import { API_URL, USER_URL } from "../env";
 
 
 function BaseLayout (props) {
     const token = localStorage.getItem('userToken')
     const reduxToken = useSelector((state) => state.token)
+    const theme = useSelector((state) => state.theme).theme
     const dispatch = useDispatch()
     useEffect (() => {
         if(token && !reduxToken) {
             const userInfo = loginWithToken()
             
         }
+        console.log(theme)
     }, []) 
 
     const loginWithToken = async () => {
         try {
-            const fetchedInfo = await fetch('http://localhost:4200/user/find', {
+            const fetchedInfo = await fetch(`${API_URL}/${USER_URL}/find`, {
             method:'GET',
             headers: {
                 'authorization': `IMPORTANT ${localStorage.getItem('userToken')}`
@@ -46,7 +48,7 @@ function BaseLayout (props) {
     }
 
     return (
-            <Box sx={{backgroundColor: 'antiquewhite'}}>
+            <Box sx={{backgroundColor: theme.backgroundColor.primary.light}}>
             <Navbar/>
             {props.children}
         </Box>

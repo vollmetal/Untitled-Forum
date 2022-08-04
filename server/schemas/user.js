@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
     profileURL: String,
     aboutMe: String,
     isAdmin: Boolean,
-    favoriteForumIds: Array
+    favoriteForumIds: Array,
+    likedPosts: Array,
 })
 
 const User = mongoose.model("User", userSchema)

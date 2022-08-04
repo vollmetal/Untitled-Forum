@@ -11,9 +11,9 @@ const User = require('../schemas/user')
 userRouter.post('/new', async (req, res) => {
     const userInfo = req.body
 
-    const currentUser = await User.findOne({ email: userInfo.email })
+    const currentUser = await User.findOne({ name: userInfo.name })
     if (currentUser != null) {
-        res.json({ success: false, message: "Account already exists for this email!" })
+        res.json({ success: false, message: "Account already exists with this username!" })
     } else {
         bcrypt.hash(userInfo.password, SALT_ROUNDS, async (error, hash) => {
             if (error) {
@@ -70,11 +70,22 @@ userRouter.get('/find', authenticate, async (req, res) => {
     }
 })
 
-userRouter.post('/login', async (req, res) => {
-    const {email, password} = req.body
+userRouter.get('/findbyid/:userId', async (req, res) => {
+    const userId = req.params.userId
 
     try {
-        const foundUser = await User.findOne({ email: email })
+        const foundUser = await User.findById(userId)
+        res.json({ success: true, user: foundUser })
+    } catch {
+        res.json({ success: false, message: "Failed to find user", currentData: userId })
+    }
+})
+
+userRouter.post('/login', async (req, res) => {
+    const {name, password} = req.body
+
+    try {
+        const foundUser = await User.findOne({ name: name })
         if(foundUser) {
             bcrypt.compare(password, foundUser.password, (error, result) => {
                 if(result) {
