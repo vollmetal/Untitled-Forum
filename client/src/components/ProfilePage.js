@@ -3,6 +3,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { Box, Card, CardContent, Skeleton, TextField, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { API_URL, USER_URL } from "../env";
 
 
 
@@ -25,7 +26,7 @@ function ProfilePage() {
     const getProfileInfo = async () => {
         setRetrievingInfo(true)
         try {
-            const fetchedInfo = await fetch('http://localhost:4200/user/find', {
+            const fetchedInfo = await fetch(`${API_URL}/${USER_URL}/find`, {
                 method: 'GET',
                 headers: {
                     'authorization': `IMPORTANT ${localStorage.getItem('userToken')}`
