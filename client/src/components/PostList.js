@@ -1,19 +1,15 @@
 import { Box, Button, List, ListItem, Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
-import * as Themes from "../Styles/Themes";
 import PostPreview from "./PostPreview";
 
 
 
 function PostList (props) {
-
-    const [postList, setPostList] = useState([])
     const [postElements, setPostElements] = useState([])
     const [retrievingInfo, setRetrievingInfo] = useState(false)
-    const [errorIndo, setErrorInfo] = useState({})
     const { isAuthenticated } = useSelector((state) => state.user)
     const theme = useSelector((state) => state.theme).theme
 
@@ -46,7 +42,6 @@ function PostList (props) {
                 likes: post.likes,
                 posterName: post.posterName
             }
-            console.log(fullPost)
             const itemList = <ListItem key={fullPost.id}>
             <PostPreview props={fullPost} />
             </ListItem>

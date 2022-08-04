@@ -32,7 +32,6 @@ function ProfilePage() {
                 }
             })
             const userInfo = await fetchedInfo.json()
-            console.log(userInfo)
             if (userInfo.success) {
                 setprofileInfo({
                     ...profileInfo,
@@ -69,7 +68,6 @@ function ProfilePage() {
                 })
             })
             const userInfo = await fetchedInfo.json()
-            console.log(userInfo)
             if (userInfo.success) {
                 setprofileInfo({
                     ...profileInfo,
@@ -98,11 +96,6 @@ function ProfilePage() {
                         Profile Information
                       </Typography>
                     <TextField sx={{
-                    bgcolor: 'white',
-                    mb: theme.inputMargins,
-                    mt: theme.inputMargins
-                }} label="Profile Picture" onChange={updateStoredInfo} type='text' name='profileURL' value={profileInfo.profileURL} />
-                    <TextField sx={{
                         bgcolor: 'white',
                         mb: theme.inputMargins,
                         mt: theme.inputMargins
@@ -112,11 +105,6 @@ function ProfilePage() {
                         mb: theme.inputMargins,
                         mt: theme.inputMargins
                     }} label="Email" onChange={updateStoredInfo} type='text' name='email' value={profileInfo.email} />
-                    <TextField sx={{
-                        bgcolor: 'white',
-                        mb: theme.inputMargins,
-                        mt: theme.inputMargins
-                    }} label="About Me" onChange={updateStoredInfo} type='text' name='aboutMe' value={profileInfo.aboutMe} />
                     <Button variant="contained" sx={{
                         bgColor: theme.palette.secondary,
                         m: theme.buttonMargins

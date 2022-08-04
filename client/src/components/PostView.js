@@ -1,7 +1,7 @@
-import { Alert, Box, Button, Card, CardContent, List, ListItem, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, CardContent, List, ListItem, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
 import { setCurrentPost } from "../stores/postReducer";
 import Comment from "./Comment";
@@ -23,16 +23,8 @@ function PostView(props) {
 
 
     useEffect(() => {
-        console.log(post)
         createCommentSection()
     }, [post])
-
-    const updateStoredComment = (e) => {
-        setStoredComment({
-            ...storedComment,
-            [e.target.name]: e.target.value
-        })
-    }
 
     const reloadPost = async () => {
         try {
@@ -46,7 +38,6 @@ function PostView(props) {
                 likes: sanitizedResponse.posts.likes,
                 posterName: sanitizedResponse.posts.posterName
             }
-            console.log(fullPost)
             dispatch(setCurrentPost(fullPost))
         } catch {
             setStoredComment({
@@ -71,7 +62,6 @@ function PostView(props) {
                 })
             })
             const sanitizedResponse = await response.json()
-            console.log(sanitizedResponse)
             await reloadPost()
         } catch {
             setStoredComment({
@@ -83,7 +73,6 @@ function PostView(props) {
 
     const createCommentSection = () => {
         try {
-            console.log(post.comments)
             const commentInfoElements = post.comments.map(comment => {
                 return <ListItem key={`${comment._id}- ${comment.posterName}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch'}}><Comment props={comment} /></ListItem>
             })

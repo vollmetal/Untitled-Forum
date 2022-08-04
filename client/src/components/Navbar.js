@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { logout } from '../stores/userReducer'
 import Button from '@mui/material/Button';
-import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 
 function Navbar (props) {
     const { username, isAuthenticated } = useSelector((state) => state.user)

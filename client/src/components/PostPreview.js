@@ -1,7 +1,7 @@
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, List, Skeleton, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
 import { setCurrentPost } from "../stores/postReducer";
 
