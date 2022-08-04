@@ -29,46 +29,6 @@ code {
     flex-direction: column;
     align-items: center;
 }
-
-.loginMenu {
-  margin: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.loginInput {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.submitButton {
-  padding-left: 200px;
-  padding-right: 200px;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-}
-
-.failMessage {
-  background-color: red;
-  color: white;
-  padding: 20px;
-
-}
-
-.registerInput {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .quill {
   background-color: white;
 }

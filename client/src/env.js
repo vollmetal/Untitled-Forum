@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:4200'
+export const API_URL = 'https://untitled-open-forum.herokuapp.com'
 
 export const POST_URL = 'post'
 

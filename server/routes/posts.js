@@ -2,7 +2,7 @@ const express = require('express');
 const postRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const authenticate = require('../middleware/authentication');
-const Post = require('../schemas/Posts');
+const Post = require('../schemas/posts');
 
 postRouter.get('/', async (req, res) => {
     try {

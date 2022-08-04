@@ -9,6 +9,7 @@ app.use(cors())
 
 require('dotenv').config()
 
+const PORT = process.env.PORT || 8080 
 
 const userRoutes = require('./routes/users')
 app.use('/user', userRoutes)
@@ -27,6 +28,6 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS
         }
     })
 
-app.listen(4200, () => {
+app.listen(PORT, () => {
     console.log('server start!')
 })

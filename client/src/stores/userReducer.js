@@ -10,7 +10,6 @@ export const userReducer = createSlice({
     },
     reducers: {
         login: (state, action) => {
-            console.log(action.payload)
             state.isAuthenticated = true
             state.token = action.payload.token
             state.username = action.payload.name

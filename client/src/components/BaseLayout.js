@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { ThemeProvider } from "@mui/system";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../stores/userReducer";
@@ -17,7 +16,6 @@ function BaseLayout (props) {
             const userInfo = loginWithToken()
             
         }
-        console.log(theme)
     }, []) 
 
     const loginWithToken = async () => {
@@ -34,7 +32,6 @@ function BaseLayout (props) {
             token: localStorage.getItem('userToken'),
             name: responseUser.user.name
         }
-        console.log(userInfo)
         if(responseUser.success) {
             dispatch(login(userInfo))
         } else {

@@ -1,25 +1,25 @@
 import { Box, Button, List, ListItem, Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
-import * as Themes from "../Styles/Themes";
+import { clearCurrentPost } from "../stores/postReducer";
 import PostPreview from "./PostPreview";
 
 
 
 function PostList (props) {
-
-    const [postList, setPostList] = useState([])
     const [postElements, setPostElements] = useState([])
     const [retrievingInfo, setRetrievingInfo] = useState(false)
-    const [errorIndo, setErrorInfo] = useState({})
     const { isAuthenticated } = useSelector((state) => state.user)
     const theme = useSelector((state) => state.theme).theme
+    const post = useSelector((state) => state.post)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         getPostList()
-    }, [props])
+        dispatch(clearCurrentPost)
+    }, [post])
 
 
     const getPostList = async () => {
@@ -46,7 +46,6 @@ function PostList (props) {
                 likes: post.likes,
                 posterName: post.posterName
             }
-            console.log(fullPost)
             const itemList = <ListItem key={fullPost.id}>
             <PostPreview props={fullPost} />
             </ListItem>
@@ -57,7 +56,7 @@ function PostList (props) {
     }
 
     return (
-        <Box sx={{margin: '50px', display: 'flex', flexDirection: 'column', alignItems:'center'}}>
+        <Box sx={{margin: '50px', display: 'flex', flexDirection: 'column', alignItems:'center', alignItems: 'stretch'}}>
             {isAuthenticated ? <NavLink to='/new-post-menu'><Button sx={{
                             bgcolor: theme.palette.secondary,
                             m: theme.buttonMargins

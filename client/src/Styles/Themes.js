@@ -1,6 +1,3 @@
-import { createTheme } from "@mui/system"
-
-
 export const lightTheme = {
   inputMargins: '10px',
   buttonMargins: '10px',

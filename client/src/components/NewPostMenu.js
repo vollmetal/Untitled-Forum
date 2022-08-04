@@ -1,10 +1,9 @@
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom";
-import { login } from "../stores/userReducer";
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { Alert, Box, Card, CardContent, CardHeader, TextField, Typography } from "@mui/material";
+import { Alert, Box, Card, CardContent, TextField, Typography } from "@mui/material";
 import { API_URL, POST_URL } from "../env";
 import ReactQuill from 'react-quill';
 import "react-quill/dist/react-quill";
@@ -28,7 +27,6 @@ const NewPostMenu = () => {
     }
 
     const saveNewPost = async () => {
-        console.log(`post contents: ${rtValue}`)
         try {
             const response = await fetch(`${API_URL}/${POST_URL}/new`, {
                 method: 'POST',

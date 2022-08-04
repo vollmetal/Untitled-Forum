@@ -1,7 +1,6 @@
-import { Alert, Box, Button, Card, CardContent, List, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
 import { setCurrentPost } from "../stores/postReducer";
 
@@ -28,7 +27,6 @@ function Comment (props) {
                 likes: sanitizedResponse.posts.likes,
                 posterName: sanitizedResponse.posts.posterName
             }
-            console.log(fullPost)
             dispatch(setCurrentPost(fullPost))
         } catch {
             
