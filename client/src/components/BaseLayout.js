@@ -48,7 +48,7 @@ function BaseLayout (props) {
     }
 
     return (
-            <Box sx={{backgroundColor: theme.theme}}>
+            <Box sx={{backgroundColor: theme.backgroundColor.primary.light}}>
             <Navbar/>
             {props.children}
         </Box>

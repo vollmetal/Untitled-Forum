@@ -36,19 +36,21 @@ function PostPreview(props) {
         }
     }
 
+    const insertHTML = () => {
+        return {__html:postInfo.props.content}
+    }
+
     return (
 
-        <Card sx={{ margin: '50px', bgcolor: theme.palette.primary, width: '100%' }}>
+        <Card sx={{ margin: '20px', bgcolor: theme.palette.primary, width: '100%' }}>
 
             <CardContent >
-
-                <Box sx={{ display: 'flex', padding: '20px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column', ml: '10px' }}>
                         <CardActionArea onClick={goToPost}>
                             <Typography gutterBottom variant="h5" component="div">{postInfo.props.name}</Typography>
-                            <Typography sx={{ mb: 1.5 }} color="text.secondary">By {postInfo.props.posterName}</Typography>
-                            <Typography variant="body2" color="text.secondary">{postInfo.props.content}</Typography>
-                            <Typography>{postInfo.props.comments.length} Comments</Typography>
+                            <Typography sx={{ mb: 1.5, borderBottomStyle:'solid', borderBottomWidth: 2 }} color="text.secondary" >By {postInfo.props.posterName}</Typography>
+                            <div dangerouslySetInnerHTML={insertHTML()}></div>
+                            <Typography sx={{borderTopStyle: 'solid', borderTopWidth: 2, mt: '10px'}}>{postInfo.props.comments.length} Comments</Typography>
                         </CardActionArea>
                         {username === postInfo.props.posterName ? <Button sx={{
                             bgcolor: theme.palette.alert
@@ -56,9 +58,6 @@ function PostPreview(props) {
                             Delete Post
                         </Button> : null}
                     </Box>
-
-
-                </Box>
 
             </CardContent>
 

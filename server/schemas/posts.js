@@ -4,12 +4,12 @@ const Comment = require('./comment')
 const postSchema = new mongoose.Schema({
     name: String,
     posterName: String,
-    content: String,
+    content: Object,
     likes: Number,
     comments: [{
         id: String,
         posterName: String,
-        content: String,
+        content: Object,
         likes: Number
     }]
 })

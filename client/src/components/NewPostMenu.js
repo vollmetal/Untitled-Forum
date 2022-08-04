@@ -6,11 +6,16 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { Alert, Box, Card, CardContent, CardHeader, TextField, Typography } from "@mui/material";
 import { API_URL, POST_URL } from "../env";
+import ReactQuill from 'react-quill';
+import "react-quill/dist/react-quill";
+import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
 
 
 const NewPostMenu = () => {
 
     const [storedInfo, setStoredInfo] = useState({})
+    const [rtValue, setRtValue] = useState("")
     const { username, isAuthenticated } = useSelector((state) => state.user)
     const theme = useSelector((state) => state.theme).theme
     const navigate = useNavigate()
@@ -23,6 +28,7 @@ const NewPostMenu = () => {
     }
 
     const saveNewPost = async () => {
+        console.log(`post contents: ${rtValue}`)
         try {
             const response = await fetch(`${API_URL}/${POST_URL}/new`, {
                 method: 'POST',
@@ -33,7 +39,7 @@ const NewPostMenu = () => {
                 body: JSON.stringify({
                     name: storedInfo.name,
                     posterName: username,
-                    content: storedInfo.content,
+                    content: rtValue,
                 })
             })
             navigate('/')
@@ -59,11 +65,7 @@ const NewPostMenu = () => {
                     mb: theme.inputMargins,
                     mt: theme.inputMargins
                 }} fullWidth label="Post Title" onChange={updateStoredInfo} name='name' />
-                <TextField sx={{
-                    bgcolor: 'white',
-                    mb: theme.inputMargins,
-                    mt: theme.inputMargins
-                }} multiline minRows={20} fullWidth label="Content" onChange={updateStoredInfo} name='content'/>
+                <ReactQuill sx={{bgcolor:'white'}} value={rtValue} onChange={setRtValue}/>
                 <Button sx={{
                             bgcolor: theme.palette.secondary
                         }} variant="contained" className="submitButton" onClick={saveNewPost}>

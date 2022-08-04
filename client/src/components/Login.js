@@ -71,7 +71,7 @@ function Login () {
                     bgcolor: 'white',
                     mb: theme.inputMargins,
                     mt: theme.inputMargins
-                }} fullWidth label="email" onChange={updateStoredInfo} name='email' />
+                }} fullWidth label="username" onChange={updateStoredInfo} name='name' />
                 <TextField sx={{
                     bgcolor: 'white',
                     mb: theme.inputMargins,

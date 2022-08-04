@@ -55,14 +55,16 @@ function Comment (props) {
         }
     }
 
+    const insertHTML = (info) => {
+        return {__html:info}
+    }
+
     return (
-        <Box>
-            <Typography>
+        <Box border='solid' borderRadius={4} padding={2}>
+            <Typography variant="h5" sx={{borderBottomStyle: 'solid'}}>
                 {props.props.posterName}
             </Typography>
-            <Typography>
-                {props.props.content}
-            </Typography>
+                <div dangerouslySetInnerHTML={insertHTML(props.props.content)}></div>
             
             {username === props.props.posterName ? <Button sx={{
                             bgcolor: theme.palette.secondary

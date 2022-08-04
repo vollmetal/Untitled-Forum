@@ -5,6 +5,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
 import { setCurrentPost } from "../stores/postReducer";
 import Comment from "./Comment";
+import "react-quill/dist/quill.core.css";
+import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
+import ReactQuill from "react-quill";
 
 function PostView(props) {
     const { username, isAuthenticated } = useSelector((state) => state.user)
@@ -15,6 +19,7 @@ function PostView(props) {
 
     const [comments, setComments] = useState([])
     const [storedComment, setStoredComment] = useState({})
+    const [rtValue, setRtValue] = useState("")
 
 
     useEffect(() => {
@@ -62,7 +67,7 @@ function PostView(props) {
                 body: JSON.stringify({
                     postId: post.id,
                     posterName: username,
-                    content: storedComment.content,
+                    content: rtValue,
                 })
             })
             const sanitizedResponse = await response.json()
@@ -78,14 +83,19 @@ function PostView(props) {
 
     const createCommentSection = () => {
         try {
+            console.log(post.comments)
             const commentInfoElements = post.comments.map(comment => {
-                return <ListItem key={`${comment._id}- ${comment.posterName}`}><Comment props={comment} /></ListItem>
+                return <ListItem key={`${comment._id}- ${comment.posterName}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch'}}><Comment props={comment} /></ListItem>
             })
             setComments(commentInfoElements)
         } catch {
             console.log(`${post.comments} is not an array!`)
         }
 
+    }
+
+    const insertHTML = (info) => {
+        return {__html:info}
     }
 
     return (
@@ -97,7 +107,7 @@ function PostView(props) {
                         <Box sx={{ display: 'flex', flexDirection: 'column', m: '10px' }}>
                             <Typography gutterBottom variant="h1" component="div">{post.name}</Typography>
                             <Typography sx={{ mb: 1.5 }}>By {post.posterName}</Typography>
-                            <Typography variant="body2">{post.content}</Typography>
+                            <div dangerouslySetInnerHTML={insertHTML(post.content)}></div>
                         </Box>
 
 
@@ -108,7 +118,7 @@ function PostView(props) {
             
             <Card sx={{margin: '50px', padding: '20px' , bgcolor: theme.palette.primary }}>
                 <Typography variant="h3">Comments</Typography>
-                <List>
+                <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch'}}>
                     {comments}
                 </List>
             </Card>
@@ -120,9 +130,7 @@ function PostView(props) {
                     }} variant="h4">
                         Make a new comment
                     </Typography>
-                    <TextField multiline minRows={20} sx={{
-                        bgcolor: 'white'
-                    }} fullWidth onChange={updateStoredComment} name='content' />
+                    <ReactQuill sx={{bgcolor:'white'}} theme="snow" value={rtValue} onChange={setRtValue}/>
                     <Button sx={{
                             bgcolor: theme.palette.secondary,
                             m: theme.buttonMargins
