@@ -70,7 +70,7 @@ function Register () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: storedInfo.email,
+                name: storedInfo.name,
                 password: storedInfo.password
             })
         })
