@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { Box, Card, CardContent, Skeleton, TextField, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { API_URL, USER_URL } from "../env";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -11,6 +12,7 @@ function ProfilePage() {
     const [profileInfo, setprofileInfo] = useState({})
     const [retrievingInfo, setRetrievingInfo] = useState(false)
     const theme = useSelector((state) => state.theme).theme
+    const navigate = useNavigate()
 
     useEffect(() => {
         getProfileInfo()
@@ -21,6 +23,9 @@ function ProfilePage() {
             ...profileInfo,
             [e.target.name]: e.target.value
         })
+    }
+    const navBack = () => {
+        navigate('/')
     }
 
     const getProfileInfo = async () => {
@@ -89,6 +94,10 @@ function ProfilePage() {
 
     return (
         <Box sx={{margin: '50px'}}>
+            <Button onClick={navBack} sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Back</Button>
             {!retrievingInfo ? <Card sx={{backgroundColor: theme.palette.primary, }}>
                 <CardContent sx={{padding: '50px', flexDirection: 'column', display: 'flex'}}>
                     <Typography sx={{

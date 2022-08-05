@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Card, CardContent, List, ListItem, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { API_URL, POST_URL } from "../env";
 import { setCurrentPost } from "../stores/postReducer";
 import Comment from "./Comment";
@@ -16,6 +16,7 @@ function PostView(props) {
     const post = useSelector((state) => state.post)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [comments, setComments] = useState([])
     const [storedComment, setStoredComment] = useState({})
@@ -83,12 +84,20 @@ function PostView(props) {
 
     }
 
+    const navBack = () => {
+        navigate('/')
+    }
+
     const insertHTML = (info) => {
         return {__html:info}
     }
 
     return (
         <Box>
+            <Button onClick={navBack} sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Back</Button>
             <Card sx={{ margin: '50px', bgcolor: theme.palette.primary }}>
                 <CardContent>
 

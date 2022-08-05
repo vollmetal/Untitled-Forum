@@ -22,6 +22,9 @@ function Register () {
             [e.target.name]: e.target.value
         })
     }
+    const navBack = () => {
+        navigate('/')
+    }
 
     const registerNewUser =  async () => {
         try {
@@ -97,6 +100,10 @@ function Register () {
 
     return (
         <Box sx={{margin: '50px'}}>
+            <Button onClick={navBack} sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Back</Button>
             <Card sx={{backgroundColor: theme.palette.primary}}>
                 <CardContent sx={{padding: '50px'}}>
                 <Typography sx={{

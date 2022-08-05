@@ -57,9 +57,16 @@ function Login () {
 
         
     }
+    const navBack = () => {
+        navigate('/')
+    }
 
     return (
         <Box sx={{margin: '50px'}}>
+            <Button onClick={navBack} sx={{
+                            bgcolor: theme.palette.secondary,
+                            m: theme.buttonMargins
+                        }} variant='contained'>Back</Button>
             <Card className="loginInput" sx={{
                             bgcolor: theme.palette.primary
                         }}>
